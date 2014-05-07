@@ -8,6 +8,8 @@ import org.jboss.arquillian.container.spi.event.container.AfterUnDeploy;
 import org.jboss.arquillian.core.api.Instance;
 import org.jboss.arquillian.core.api.annotation.Inject;
 import org.jboss.arquillian.core.api.annotation.Observes;
+import org.jboss.arquillian.moco.HelloWorldServlet;
+import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.jboss.shrinkwrap.resolver.api.maven.Maven;
 
@@ -42,7 +44,7 @@ public class MockServerDeployer {
     }
     
     private void resolveMockServerArchive() {
-        this.mockServerWebArchive = Maven.resolver().resolve("org.mock-server:mockserver-war:war:2.8").withoutTransitivity().asSingle(WebArchive.class);
+        this.mockServerWebArchive = ShrinkWrap.create(WebArchive.class).addClass(HelloWorldServlet.class);
     }
 
 }
